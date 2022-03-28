@@ -42,13 +42,7 @@ if (NOT OpenCV_FOUND)
     message(FATAL_ERROR "OpenCV > 4.4 not found.")
 endif ()
 
-# Caffe and Glog
-set(CAFFE_ROOT_DIR "./Thirdparty/caffe-segnet")
-find_package(CAFFE REQUIRED)
-if(CAFFE_FOUND)
-   MESSAGE("FOUND CAFFE_INCLUDE AT: " ${CAFFE_INCLUDE_DIR})
-   MESSAGE("FOUND CAFFE_LIBRARIES AT: " ${CAFFE_LIBRARY})
-endif()
+# Glog
 
 find_package(GLOG REQUIRED)
 
@@ -75,13 +69,12 @@ include_directories(
         ${EIGEN3_INCLUDE_DIR}
         ${Pangolin_INCLUDE_DIRS}
         ${TBB_INCLUDE_DIR}
-        ${CAFFE_INCLUDE_DIRS}
         ${GLOG_INCLUDE_DIRS}
         -lboost_system
         /usr/local/include
         # /usr/local/cuda-11.2/include
-        /usr/local/cuda-10.2/targets/x86_64-linux/include
-        /usr/include/hdf5/serial
+        # /usr/local/cuda-10.2/targets/x86_64-linux/include
+        # /usr/include/hdf5/serial
         /usr/include
 )
 
@@ -168,7 +161,6 @@ target_link_libraries(${PROJECT_NAME}
         ${Pangolin_LIBRARIES}
         ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
         ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
-        ${CAFFE_LIBRARIES}
         ${GLOG_LIBRARIES}
         -lboost_serialization
         -lcrypto
