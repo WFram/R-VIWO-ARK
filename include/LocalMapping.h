@@ -23,7 +23,7 @@
 #define LOCALMAPPING_H
 
 #include "Atlas.h"
-#include "DynamicDetector.h"
+//#include "DynamicDetector.h"
 #include "KeyFrame.h"
 #include "KeyFrameDatabase.h"
 #include "LoopClosing.h"
@@ -39,7 +39,7 @@ class System;
 class Tracking;
 class LoopClosing;
 class Atlas;
-class DynamicDetector;
+//class DynamicDetector;
 
 class LocalMapping {
  public:
@@ -51,7 +51,7 @@ class LocalMapping {
 
   void SetTracker(Tracking* pTracker);
 
-  void SetDynamicDetector(DynamicDetector* pDynamicDetector);
+//  void SetDynamicDetector(DynamicDetector* pDynamicDetector);
 
   // Main function
   void Run();
@@ -165,7 +165,7 @@ class LocalMapping {
   LoopClosing* mpLoopCloser{};
   Tracking* mpTracker{};
 
-  DynamicDetector* mpDynamicsDetectors;
+//  DynamicDetector* mpDynamicsDetectors;
 
   std::list<KeyFrame*> mlNewKeyFrames;
 

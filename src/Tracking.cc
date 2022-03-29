@@ -1376,9 +1376,9 @@ void Tracking::SetLoopClosing(LoopClosing* pLoopClosing) {
 
 void Tracking::SetViewer(Viewer* pViewer) { mpViewer = pViewer; }
 
-void Tracking::SetSegment(Segment* pSegment) { mpSegment=pSegment; }
+//void Tracking::SetSegment(Segment* pSegment) { mpSegment=pSegment; }
 
-void Tracking::SetDynamicCuller(DynamicCulling* pDynamicCuller) { mpDynamicCuller = pDynamicCuller; }
+//void Tracking::SetDynamicCuller(DynamicCulling* pDynamicCuller) { mpDynamicCuller = pDynamicCuller; }
 
 void Tracking::SetStepByStep(bool bSet) { bStepByStep = bSet; }
 
@@ -1537,11 +1537,15 @@ Sophus::SE3f Tracking::GrabImageRGBD(const cv::Mat& imRGB, const cv::Mat& imD,
 
   if (mSensor == System::RGBD)
     mCurrentFrame =
-        Frame(mImGray, imDepth, mpSegment->mImgSegmentLatest, timestamp, mpORBextractorLeft, mpORBVocabulary,
+//        Frame(mImGray, imDepth, mpSegment->mImgSegmentLatest, timestamp, mpORBextractorLeft, mpORBVocabulary,
+//              mK, mDistCoef, mbf, mThDepth, mpCamera);
+        Frame(mImGray, imDepth, timestamp, mpORBextractorLeft, mpORBVocabulary,
               mK, mDistCoef, mbf, mThDepth, mpCamera);
   else if (mSensor == System::IMU_RGBD)
     mCurrentFrame =
-        Frame(mImGray, imDepth, mpSegment->mImgSegmentLatest, timestamp, mpORBextractorLeft, mpORBVocabulary,
+//        Frame(mImGray, imDepth, mpSegment->mImgSegmentLatest, timestamp, mpORBextractorLeft, mpORBVocabulary,
+//              mK, mDistCoef, mbf, mThDepth, mpCamera, &mLastFrame, *mpImuCalib);
+        Frame(mImGray, imDepth, timestamp, mpORBextractorLeft, mpORBVocabulary,
               mK, mDistCoef, mbf, mThDepth, mpCamera, &mLastFrame, *mpImuCalib);
 
   mCurrentFrame.mNameFile = filename;
@@ -1958,12 +1962,12 @@ void Tracking::ResetFrameIMU() {
   // TODO To implement...
 }
 
-void Tracking::GetImg(const cv::Mat& img)
-{
-    // unique_lock<mutex> lock(mpSegment->mMutexGetNewImg); // Maybe not to use it after all?
-    mpSegment->mbNewImgFlag=true; // ???
-    img.copyTo(mpSegment->mImg);
-}
+//void Tracking::GetImg(const cv::Mat& img)
+//{
+//    // unique_lock<mutex> lock(mpSegment->mMutexGetNewImg); // Maybe not to use it after all?
+//    mpSegment->mbNewImgFlag=true; // ???
+//    img.copyTo(mpSegment->mImg);
+//}
 
 void Tracking::Track() {
   // TODO: Change this to new type sensor

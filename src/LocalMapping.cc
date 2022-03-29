@@ -71,7 +71,7 @@ void LocalMapping::SetLoopCloser(LoopClosing* pLoopCloser) {
 
 void LocalMapping::SetTracker(Tracking* pTracker) { mpTracker = pTracker; }
 
-void LocalMapping::SetDynamicDetector(DynamicDetector* pDynamicDetector) { mpDynamicsDetectors = pDynamicDetector; }
+//void LocalMapping::SetDynamicDetector(DynamicDetector* pDynamicDetector) { mpDynamicsDetectors = pDynamicDetector; }
 
 void LocalMapping::Run() {
   mbFinished = false;

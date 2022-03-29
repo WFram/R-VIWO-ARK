@@ -109,10 +109,10 @@ add_library(${PROJECT_NAME} SHARED
         src/TwoViewReconstruction.cc
         src/Config.cc
         src/Settings.cc
-        src/DynamicCulling.cc
-        src/DynamicDetector.cc
-        src/Segment.cc
-        src/libsegmentation.cpp
+#        src/DynamicCulling.cc
+#        src/DynamicDetector.cc
+#        src/Segment.cc
+#        src/libsegmentation.cpp
         # src/pyhelper.cpp
         include/System.h
         include/Tracking.h
@@ -144,10 +144,10 @@ add_library(${PROJECT_NAME} SHARED
         include/SerializationUtils.h
         include/Config.h
         include/Settings.h
-        include/DynamicCulling.h
-        include/DynamicDetector.h
-        include/Segment.h
-        include/libsegmentation.hpp
+#        include/DynamicCulling.h
+#        include/DynamicDetector.h
+#        include/Segment.h
+#        include/libsegmentation.hpp
         # include/pyhelper.hpp
         src/OdomTypes.cpp include/OdomTypes.h
         src/OdomFactor.cpp include/OdomFactor.h

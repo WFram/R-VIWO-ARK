@@ -902,8 +902,8 @@ void System::Shutdown() {
 
   mpLocalMapper->RequestFinish();
   mpLoopCloser->RequestFinish();
-  mpDynamiCulling->RequestFinish();
-  mpSegment->RequestFinish();
+//  mpDynamiCulling->RequestFinish();
+//  mpSegment->RequestFinish();
   if (mpViewer) {
     mpViewer->RequestFinish();
     while (!mpViewer->isFinished()) usleep(5000);

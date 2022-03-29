@@ -24,15 +24,15 @@ make -j2
 # cmake .. -DCMAKE_BUILD_TYPE=Release
 # make -j2
 
-cd ../../caffe-segnet
-
-echo "Configuring and building Thirdparty/caffe-segnet ..."
-
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release \
-            -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
-make -j2
+#cd ../../caffe-segnet
+#
+#echo "Configuring and building Thirdparty/caffe-segnet ..."
+#
+#mkdir build
+#cd build
+#cmake .. -DCMAKE_BUILD_TYPE=Release \
+#            -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
+#make -j2
 
 cd ../../../
 

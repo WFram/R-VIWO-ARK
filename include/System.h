@@ -32,8 +32,8 @@
 // #include <Python.h>
 
 #include "Atlas.h"
-#include "DynamicCulling.h"
-#include "DynamicDetector.h"
+//#include "DynamicCulling.h"
+//#include "DynamicDetector.h"
 #include "FrameDrawer.h"
 #include "ImuTypes.h"
 #include "KeyFrameDatabase.h"
@@ -42,7 +42,7 @@
 #include "MapDrawer.h"
 #include "ORBVocabulary.h"
 #include "OdomTypes.h"
-#include "Segment.h"
+//#include "Segment.h"
 #include "Settings.h"
 #include "Tracking.h"
 #include "Viewer.h"
@@ -78,9 +78,9 @@ class Tracking;
 class LocalMapping;
 class LoopClosing;
 class Settings;
-class DynamicDetector;
-class Segment;
-class DynamicCulling;
+//class DynamicDetector;
+//class Segment;
+//class DynamicCulling;
 
 class System {
  public:
@@ -260,13 +260,13 @@ class System {
   LoopClosing* mpLoopCloser;
 
   // K-Means
-  DynamicDetector* mpDynamicsDetectors;
+//  DynamicDetector* mpDynamicsDetectors;
 
   // Dynamic Culling
-  DynamicCulling* mpDynamiCulling;
+//  DynamicCulling* mpDynamiCulling;
 
   // The semantic segmentation thread
-  Segment* mpSegment;
+//  Segment* mpSegment;
 
   // The viewer draws the map and the current camera pose. It uses Pangolin.
   Viewer* mpViewer;

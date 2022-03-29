@@ -25,7 +25,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
 #include "Atlas.h"
-#include "DynamicCulling.h"
+//#include "DynamicCulling.h"
 #include "Frame.h"
 #include "FrameDrawer.h"
 #include "ImuTypes.h"
@@ -36,7 +36,7 @@
 #include "ORBVocabulary.h"
 #include "ORBextractor.h"
 #include "OdomTypes.h"
-#include "Segment.h"
+//#include "Segment.h"
 #include "Settings.h"
 #include "System.h"
 #include "Thirdparty/Sophus/sophus/interpolate.hpp"
@@ -58,8 +58,8 @@ class LocalMapping;
 class LoopClosing;
 class System;
 class Settings;
-class Segment;
-class DynamicCulling;
+//class Segment;
+//class DynamicCulling;
 
 class Tracking {
  public:
@@ -99,7 +99,7 @@ class Tracking {
   void SetLocalMapper(LocalMapping* pLocalMapper);
   void SetLoopClosing(LoopClosing* pLoopClosing);
   void SetViewer(Viewer* pViewer);
-  void SetDynamicCuller(DynamicCulling* pDynamicCuller);
+//  void SetDynamicCuller(DynamicCulling* pDynamicCuller);
   void SetStepByStep(bool bSet);
   bool GetStepByStep() const;
 
@@ -187,11 +187,11 @@ class Tracking {
   bool mbOnlyTracking;
 
   // For the semantic segmentation thread
-  Segment* mpSegment;
+//  Segment* mpSegment;
   cv::Mat mImgNew;
   std::condition_variable mbcvImgNew;
-  void GetImg(const cv::Mat &img);
-  void SetSegment(Segment* segment);
+//  void GetImg(const cv::Mat &img);
+//  void SetSegment(Segment* segment);
   // bool mbNewSegImgFlag;
 
   void Reset(bool bLocMap = false);
@@ -307,7 +307,7 @@ class Tracking {
   // Other Thread Pointers
   LocalMapping* mpLocalMapper;
   LoopClosing* mpLoopClosing;
-  DynamicCulling* mpDynamicCuller;
+//  DynamicCulling* mpDynamicCuller;
 
   // ORB
   ORBextractor *mpORBextractorLeft, *mpORBextractorRight;
