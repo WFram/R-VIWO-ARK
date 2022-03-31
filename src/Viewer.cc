@@ -19,6 +19,8 @@
  * ORB-SLAM3. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define DEBUG
+
 #include "Viewer.h"
 
 #include <pangolin/pangolin.h>
@@ -156,6 +158,9 @@ bool Viewer::ParseViewerParamFile(cv::FileStorage& fSettings) {
 void Viewer::Run() {
   mbFinished = false;
   mbStopped = false;
+#ifdef DEBUG
+  int counterTestView = 1;
+#endif
 
   pangolin::CreateWindowAndBind("ORB-SLAM3: Map Viewer", 1024, 768);
 
@@ -322,6 +327,10 @@ void Viewer::Run() {
       cv::resize(toShow, toShow, cv::Size(width, height));
     }
 
+#ifdef DEBUG
+    cv::imwrite("/home/wfram/R-VIWO-ARK/testImageShow/"+std::to_string(counterTestView)+".png", toShow);
+    counterTestView++;
+#endif
     cv::imshow("ORB-SLAM3: Current Frame", toShow);
     cv::waitKey(mT);
     // cv::Mat imD = mpFrameDrawer->DrawKeyFrame(trackedImageScale);

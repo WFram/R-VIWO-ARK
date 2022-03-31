@@ -32,18 +32,18 @@
 
 namespace ORB_SLAM3 {
 double Optimizer::getAlfa(double prob) {
-//  if (prob <= 0.2) {
-//    return (-prob + 1);
-//  }
-//  else if (prob > 0.2 and prob <= 0.6) {
-//    return (-2.5 * prob * prob + 0.9);
-//  }
-//  else if (prob > 0.6 and prob <= 0.8) {
-//    return (-1235 * prob * prob + 1479 * prob - 442.8);
-//  }
-//  else {
-//    return (-15 * prob * prob - 473 * prob + 338);
-//  }
+  if (prob <= 0.2) {
+    return (-prob + 1);
+  }
+  else if (prob > 0.2 and prob <= 0.6) {
+    return (-2.5 * prob * prob + 0.9);
+  }
+  else if (prob > 0.6 and prob <= 0.8) {
+    return (-1235 * prob * prob + 1479 * prob - 442.8);
+  }
+  else {
+    return (-15 * prob * prob - 473 * prob + 338);
+  }
 //  if (prob <= 0.2) {
 //    return (-prob + 1);
 //  }
@@ -68,18 +68,27 @@ double Optimizer::getAlfa(double prob) {
 //  else {
 //    return (-116100 * prob * prob + 171480 * prob - 65379);
 //  }
-  if (prob <= 0.2) {
-    return (-prob + 1);
-  }
-  else if (prob > 0.2 and prob <= 0.45) {
-    return (-8.8 * prob * prob + 2.52 * prob + 0.648);
-  }
-  else if (prob > 0.45 and prob <= 0.8) {
-    return (-61209 * prob * prob + 55083 * prob - 12392);
-  }
-  else {
-    return (151760 * prob * prob - 285670 * prob + 123910);
-  }
+//  if (prob <= 0.2) {
+//    return (-prob + 1);
+//  }
+//  else if (prob > 0.2 and prob <= 0.45) {
+//    return (-8.8 * prob * prob + 2.52 * prob + 0.648);
+//  }
+//  else if (prob > 0.45 and prob <= 0.8) {
+//    return (-61209 * prob * prob + 55083 * prob - 12392);
+//  }
+//  else {
+//    return (151760 * prob * prob - 285670 * prob + 123910);
+//  }
+//  if (prob <= 0.3) {
+//    return (-1.3 * prob + 1.2);
+//  }
+//  else if (prob > 0.3 and prob <= 0.65) {
+//    return (-61227 * prob * prob + 36735 * prob - 5509.2);
+//  }
+//  else {
+//    return (102050 * prob * prob - 175530 * prob + 63475);
+//  }
 }
 
 void Optimizer::GlobalBundleAdjustemnt(Map* pMap, int nIterations,

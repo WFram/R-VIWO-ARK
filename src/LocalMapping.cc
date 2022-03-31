@@ -1435,8 +1435,8 @@ void LocalMapping::FuseSemanticLabels(KeyFrame* pKF, bool* pbStopFlag) {
 
   float Pz [3][3];
   memset(Pz, 0, sizeof Pz);
-  Pz[0][0] = 0.7f; // P( person, person)
-  Pz[1][0] = 0.3f; // P( not_person, person)
+  Pz[0][0] = 0.95f; // P( person, person) 0.7
+  Pz[1][0] = 0.05f; // P( not_person, person) 0.3
   Pz[0][1] = 0.2f; // P( person, not_person)
   Pz[1][1] = 0.8f; // P( not_person, not_person)
 
