@@ -100,6 +100,16 @@ class System {
     BINARY_FILE = 1,
   };
 
+  // Local Mapper. It manages the local map and performs local bundle
+  // adjustment.
+  LocalMapping* mpLocalMapper;
+
+  MapDrawer* mpMapDrawer;
+
+  // Map structure that stores the pointers to all KeyFrames and MapPoints.
+  // Map* mpMap;
+  Atlas* mpAtlas;
+
  public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   // Initialize the SLAM system. It launches the Local Mapping, Loop Closing and
@@ -241,18 +251,10 @@ class System {
   // detection).
   KeyFrameDatabase* mpKeyFrameDatabase;
 
-  // Map structure that stores the pointers to all KeyFrames and MapPoints.
-  // Map* mpMap;
-  Atlas* mpAtlas;
-
   // Tracker. It receives a frame and computes the associated camera pose.
   // It also decides when to insert a new keyframe, create some new MapPoints
   // and performs relocalization if tracking fails.
   Tracking* mpTracker;
-
-  // Local Mapper. It manages the local map and performs local bundle
-  // adjustment.
-  LocalMapping* mpLocalMapper;
 
   // Loop Closer. It searches loops with every new keyframe. If there is a loop
   // it performs a pose graph optimization and full bundle adjustment (in a new
@@ -272,7 +274,6 @@ class System {
   Viewer* mpViewer;
 
   FrameDrawer* mpFrameDrawer;
-  MapDrawer* mpMapDrawer;
 
   // System threads: Local Mapping, Loop Closing, Segmentation, Viewer.
   // The Tracking thread "lives" in the main execution thread that creates the

@@ -159,6 +159,7 @@ KeyFrame::KeyFrame(Frame &F, Map *pMap, KeyFrameDatabase *pKFDB)
       mDistCoef(F.mDistCoef),
       mbNotErase(false),
       mnDataset(F.mnDataset),
+      imgLeft(F.imgLeft.clone()),
       mbToBeErased(false),
       mbBad(false),
       mHalfBaseline(F.mb / 2),

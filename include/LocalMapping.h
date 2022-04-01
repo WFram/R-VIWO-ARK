@@ -116,6 +116,9 @@ class LocalMapping {
   bool mbFarPoints{};
   float mThFarPoints{};
 
+  // List for Public
+  std::list<KeyFrame*> mlProcessdKFs;
+
 #ifdef REGISTER_TIMES
   vector<double> vdKFInsert_ms;
   vector<double> vdMPCulling_ms;

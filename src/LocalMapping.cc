@@ -144,7 +144,7 @@ void LocalMapping::Run() {
 
       if (!CheckNewKeyFrames() && !stopRequested()) {
 
-        FuseSemanticLabels(mpCurrentKeyFrame, &mbAbortBA);
+//        FuseSemanticLabels(mpCurrentKeyFrame, &mbAbortBA);
 
         if (mpAtlas->KeyFramesInMap() > 2) {
           if (mbInertial && mpCurrentKeyFrame->GetMap()->isImuInitialized()) {
@@ -273,6 +273,8 @@ void LocalMapping::Run() {
 #endif
 
       mpLoopCloser->InsertKeyFrame(mpCurrentKeyFrame);
+//      if (mpCurrentKeyFrame->GetMap()->isImuInitialized())
+      mlProcessdKFs.push_back(mpCurrentKeyFrame);
 
 #ifdef REGISTER_TIMES
       std::chrono::steady_clock::time_point time_EndLocalMap =
@@ -1417,7 +1419,7 @@ void LocalMapping::FuseSemanticLabels(KeyFrame* pKF, bool* pbStopFlag) {
   // Criteria of movement right now just if the object is person and has big projection error
   Map* pCurrentMap = pKF->GetMap();
   cv::Mat img = pKF->gray_.clone();
-  cv::cvtColor(img, img, cv::COLOR_GRAY2RGB);
+//  cv::cvtColor(img, img, cv::COLOR_GRAY2RGB);
   vector<MapPoint*> vpMPs = pKF->GetMapPointMatches();
   int index = 0;
   cv::Vec3b PEOPLE_COLOR(61, 5, 150);
@@ -1483,15 +1485,15 @@ void LocalMapping::FuseSemanticLabels(KeyFrame* pKF, bool* pbStopFlag) {
 
 
        // if(!zt) {
-       if(pMP->mProbMov > 0.45) {
-       // pMP->SetBadFlag();
-         cv::line(img, kpUn.pt, proj, cv::Scalar(0,127,255),2);
-         cv::circle(img, kpUn.pt, 3, cv::Scalar(0,255,0));
-         cv::circle(img, proj, 2, cv::Scalar(255,0,0));
-       }
-       else {
-         cv::circle(img, kpUn.pt, 6, cv::Scalar(0,0,255));
-       }
+//       if(pMP->mProbMov > 0.45) {
+//       // pMP->SetBadFlag();
+//         cv::line(img, kpUn.pt, proj, cv::Scalar(0,127,255),2);
+//         cv::circle(img, kpUn.pt, 3, cv::Scalar(0,255,0));
+//         cv::circle(img, proj, 2, cv::Scalar(255,0,0));
+//       }
+//       else {
+//         cv::circle(img, kpUn.pt, 6, cv::Scalar(0,0,255));
+//       }
       }
     }
     index++;
