@@ -126,9 +126,11 @@ class Frame {
 
   // Check if a MapPoint is in the frustum of the camera
   // and fill variables of the MapPoint to be used by the tracking
-  bool isInFrustum(MapPoint* pMP, float viewingCosLimit);
+  bool isInFrustum(MapPoint *pMP, float viewingCosLimit);
 
   bool ProjectPointDistort(MapPoint* pMP, cv::Point2f& kp, float& u, float& v);
+
+  bool ProjectPointUnDistort(MapPoint* pMP, cv::Point2f& kp, float& u, float& v);
 
   Eigen::Vector3f inRefCoordinates(Eigen::Vector3f pCw);
 
@@ -247,7 +249,8 @@ class Frame {
   // must be rectified. In the RGB-D case, RGB images can be distorted.
   std::vector<cv::KeyPoint> mvKeys, mvKeysRight, mvDynKeys;
   std::vector<cv::KeyPoint> mvKeysUn;
-  std::vector<cv::Vec3b> mvSegVal;
+  std::vector<float> mvSegVal;
+  std::vector<bool> mbIsPropagated;
   std::vector<double> mvProb;
 
   // Corresponding stereo coordinate and depth for each keypoint.

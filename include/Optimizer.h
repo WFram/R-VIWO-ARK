@@ -76,7 +76,13 @@ class Optimizer {
   int static PoseInertialOptimizationLastFrame(Frame* pFrame,
                                                bool bRecInit = false);
 
-  double static getAlfa(double prob);
+  double static getAlfa(double prob, double err);
+
+  float static Px(bool x_cur, bool u_cur, bool x_last);
+
+  void static LabelToProb(const cv::KeyPoint &kpUn, const float &kpSegVal, MapPoint *pMP, Frame *pF);
+
+  void static LabelToProb(const cv::KeyPoint &kpUn, const float &kpSegVal, MapPoint *pMP, KeyFrame *pKF);
 
   // if bFixScale is true, 6DoF optimization (stereo,rgbd), 7DoF otherwise
   // (mono)

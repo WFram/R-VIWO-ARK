@@ -59,6 +59,8 @@ class LocalMapping {
   void InsertKeyFrame(KeyFrame* pKF);
   void EmptyQueue();
 
+  KeyFrame* GetKeyFrameToPublish();
+
   // Thread Synch
   void RequestStop();
   void RequestReset();

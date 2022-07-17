@@ -422,4 +422,9 @@ void MapDrawer::GetCurrentOpenGLCameraMatrix(pangolin::OpenGlMatrix& M,
   MOw.m[13] = Twc(1, 3);
   MOw.m[14] = Twc(2, 3);
 }
+double MapDrawer::getmTimestamp() const { return mTimestamp; }
+void MapDrawer::setmTimestamp(double timestamp) {
+    MapDrawer::mTimestamp = timestamp;
+}
+// TODO: Add GetCurrentCameraPose() here
 }  // namespace ORB_SLAM3

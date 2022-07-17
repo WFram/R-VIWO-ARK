@@ -52,6 +52,8 @@ class MapDrawer {
   void SetReferenceKeyFrame(KeyFrame* pKF);
   void GetCurrentOpenGLCameraMatrix(pangolin::OpenGlMatrix& M,
                                     pangolin::OpenGlMatrix& MOw);
+  void setmTimestamp(double mTimestamp);
+  double getmTimestamp() const;
 
  private:
   bool ParseViewerParamFile(cv::FileStorage& fSettings);
@@ -64,6 +66,7 @@ class MapDrawer {
   float mCameraLineWidth;
 
   Sophus::SE3f mCameraPose;
+  double mTimestamp;
 
   std::mutex mMutexCamera;
 
