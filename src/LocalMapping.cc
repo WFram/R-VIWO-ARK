@@ -30,6 +30,8 @@
 #include "ORBmatcher.h"
 #include "Optimizer.h"
 
+#define ORB_SLAM3_ORIGINAL
+
 namespace ORB_SLAM3 {
 
 LocalMapping::LocalMapping(System* pSys, Atlas* pAtlas, const float bMonocular,
@@ -143,9 +145,9 @@ void LocalMapping::Run() {
       int num_edges_BA = 0;
 
       if (!CheckNewKeyFrames() && !stopRequested()) {
-
+#ifndef ORB_SLAM3_ORIGINAL
         FuseSemanticLabels(mpCurrentKeyFrame, &mbAbortBA);
-
+#endif
         if (mpAtlas->KeyFramesInMap() > 2) {
           if (mbInertial && mpCurrentKeyFrame->GetMap()->isImuInitialized()) {
             float dist =

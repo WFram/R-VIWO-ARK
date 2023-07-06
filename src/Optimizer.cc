@@ -30,6 +30,8 @@
 #include "G2oTypes.h"
 #include "OptimizableTypes.h"
 
+#define ORB_SLAM3_ORIGINAL
+
 namespace ORB_SLAM3 {
 double Optimizer::getAlfa(double prob) {
   if (prob <= 0.2) {
@@ -218,9 +220,10 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame*>& vpKFs,
 
         // ARK Bayes
         if (bRobust) {
-//          auto* rk = new g2o::RobustKernelHuber;
-//          e->setRobustKernel(rk);
-//          rk->setDelta(thHuber2D);
+#ifdef ORB_SLAM3_ORIGINAL
+          auto* rk = new g2o::RobustKernelHuber;
+          e->setRobustKernel(rk);
+          rk->setDelta(thHuber2D);
 
 //          auto* ark = new g2o::RobustKernelAdaptive;
 //          double alphaBA = getAlfa(pMP->mProbMov);
@@ -233,12 +236,12 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame*>& vpKFs,
 //            alphaBA = 1.0f;
 //          }
 //          ark->setAlpha(alphaBA);
-
+#else
           auto* ark = new g2o::RobustKernelAdaptive;
           double alphaBA = getAlfa(pMP->mProbMov);
           e->setRobustKernel(ark);
           ark->setAlpha(alphaBA);
-
+#endif
 //          switch (mKernel) {
 //            case 0:
 //              auto* rk = new g2o::RobustKernelHuber;
@@ -290,9 +293,10 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame*>& vpKFs,
 
         // ARK Bayes
         if (bRobust) {
-//          auto* rk = new g2o::RobustKernelHuber;
-//          e->setRobustKernel(rk);
-//          rk->setDelta(thHuber3D);
+#ifdef ORB_SLAM3_ORIGINAL
+          auto* rk = new g2o::RobustKernelHuber;
+          e->setRobustKernel(rk);
+          rk->setDelta(thHuber3D);
 
 //          auto* ark = new g2o::RobustKernelAdaptive;
 //          double alphaBA = getAlfa(pMP->mProbMov);
@@ -305,12 +309,12 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame*>& vpKFs,
 //            alphaBA = 1.0f;
 //          }
 //          ark->setAlpha(alphaBA);
-
+#else
           auto* ark = new g2o::RobustKernelAdaptive;
           double alphaBA = getAlfa(pMP->mProbMov);
           e->setRobustKernel(ark);
           ark->setAlpha(alphaBA);
-
+#endif
 //          switch (mKernel) {
 //            case 0:
 //              auto* rk = new g2o::RobustKernelHuber;
@@ -370,9 +374,10 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame*>& vpKFs,
           const float& invSigma2 = pKF->mvInvLevelSigma2[kp.octave];
           e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//          auto* rk = new g2o::RobustKernelHuber;
-//          e->setRobustKernel(rk);
-//          rk->setDelta(thHuber2D);
+#ifdef ORB_SLAM3_ORIGINAL
+          auto* rk = new g2o::RobustKernelHuber;
+          e->setRobustKernel(rk);
+          rk->setDelta(thHuber2D);
 
 //          switch (mKernel) {
 //            case 0:
@@ -407,11 +412,12 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame*>& vpKFs,
 //             alphaBA = 1.0f;
 //           }
 //           rk->setAlpha(alphaBA);
-
+#else
           auto* rk = new g2o::RobustKernelAdaptive;
           double alphaBA = getAlfa(pMP->mProbMov);
           e->setRobustKernel(rk);
           rk->setAlpha(alphaBA);
+#endif
 
           Sophus::SE3f Trl = pKF->GetRelativePoseTrl();
           e->mTrl = g2o::SE3Quat(Trl.unit_quaternion().cast<double>(),
@@ -1041,9 +1047,10 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
             const float invSigma2 = pFrame->mvInvLevelSigma2[kpUn.octave];
             e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//            auto* rk = new g2o::RobustKernelHuber; // HERE
-//            e->setRobustKernel(rk);
-//            rk->setDelta(deltaMono);
+#ifdef ORB_SLAM3_ORIGINAL
+            auto* rk = new g2o::RobustKernelHuber; // HERE
+            e->setRobustKernel(rk);
+            rk->setDelta(deltaMono);
 
             // ARK Bayes
 //            auto* ark = new g2o::RobustKernelAdaptive;
@@ -1057,11 +1064,12 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
 //              alphaBA = 1.0f;
 //            }
 //            ark->setAlpha(alphaBA);
-
+#else
             auto* ark = new g2o::RobustKernelAdaptive;
             double alphaBA = getAlfa(pMP->mProbMov);
             e->setRobustKernel(ark);
             ark->setAlpha(alphaBA);
+#endif
 
             e->pCamera = pFrame->mpCamera;
             e->Xw = pMP->GetWorldPos().cast<double>();
@@ -1090,9 +1098,10 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
             Eigen::Matrix3d Info = Eigen::Matrix3d::Identity() * invSigma2;
             e->setInformation(Info);
 
-//            auto* rk = new g2o::RobustKernelHuber;
-//            e->setRobustKernel(rk);
-//            rk->setDelta(deltaStereo);
+#ifdef ORB_SLAM3_ORIGINAL
+            auto* rk = new g2o::RobustKernelHuber;
+            e->setRobustKernel(rk);
+            rk->setDelta(deltaStereo);
 
             // ARK Bayes
 //            auto* ark = new g2o::RobustKernelAdaptive;
@@ -1106,11 +1115,12 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
 //              alphaBA = 1.0f;
 //            }
 //            ark->setAlpha(alphaBA);
-
+#else
             auto* ark = new g2o::RobustKernelAdaptive;
             double alphaBA = getAlfa(pMP->mProbMov);
             e->setRobustKernel(ark);
             ark->setAlpha(alphaBA);
+#endif
 
             e->fx = ORB_SLAM3::Frame::fx;
             e->fy = ORB_SLAM3::Frame::fy;
@@ -1149,9 +1159,10 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
             const float invSigma2 = pFrame->mvInvLevelSigma2[kpUn.octave];
             e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//            auto* rk = new g2o::RobustKernelHuber;
-//            e->setRobustKernel(rk);
-//            rk->setDelta(deltaMono);
+#ifdef ORB_SLAM3_ORIGINAL
+            auto* rk = new g2o::RobustKernelHuber;
+            e->setRobustKernel(rk);
+            rk->setDelta(deltaMono);
 
             // ARK Bayes
 //            auto* ark = new g2o::RobustKernelAdaptive;
@@ -1165,11 +1176,12 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
 //              alphaBA = 1.0f;
 //            }
 //            ark->setAlpha(alphaBA);
-
+#else
             auto* ark = new g2o::RobustKernelAdaptive;
             double alphaBA = getAlfa(pMP->mProbMov);
             e->setRobustKernel(ark);
             ark->setAlpha(alphaBA);
+#endif
 
             e->pCamera = pFrame->mpCamera;
             e->Xw = pMP->GetWorldPos().cast<double>();
@@ -1195,9 +1207,10 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
             const float invSigma2 = pFrame->mvInvLevelSigma2[kpUn.octave];
             e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//            auto* rk = new g2o::RobustKernelHuber;
-//            e->setRobustKernel(rk);
-//            rk->setDelta(deltaMono);
+#ifdef ORB_SLAM3_ORIGINAL
+            auto* rk = new g2o::RobustKernelHuber;
+            e->setRobustKernel(rk);
+            rk->setDelta(deltaMono);
 
             // ARK Bayes
 //            auto* ark = new g2o::RobustKernelAdaptive;
@@ -1211,11 +1224,12 @@ int Optimizer::PoseOptimization(Frame* pFrame) {
 //              alphaBA = 1.0f;
 //            }
 //            ark->setAlpha(alphaBA);
-
+#else
             auto* ark = new g2o::RobustKernelAdaptive;
             double alphaBA = getAlfa(pMP->mProbMov);
             e->setRobustKernel(ark);
             ark->setAlpha(alphaBA);
+#endif
 
             e->pCamera = pFrame->mpCamera2;
             e->Xw = pMP->GetWorldPos().cast<double>();
@@ -1557,9 +1571,10 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pKF, bool* pbStopFlag,
           const float& invSigma2 = pKFi->mvInvLevelSigma2[kpUn.octave];
           e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//          auto* rk = new g2o::RobustKernelHuber;
-//          e->setRobustKernel(rk);
-//          rk->setDelta(thHuberMono);
+#ifdef ORB_SLAM3_ORIGINAL
+          auto* rk = new g2o::RobustKernelHuber;
+          e->setRobustKernel(rk);
+          rk->setDelta(thHuberMono);
 
           // ARK Bayes
 
@@ -1575,11 +1590,12 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pKF, bool* pbStopFlag,
 //            alphaBA = 1.0f;
 //          }
 //          ark->setAlpha(alphaBA);
-
+#else
           auto* ark = new g2o::RobustKernelAdaptive;
           double alphaBA = getAlfa(pMP->mProbMov);
           e->setRobustKernel(ark);
           ark->setAlpha(alphaBA);
+#endif
 
           e->pCamera = pKFi->mpCamera;
 
@@ -1610,9 +1626,10 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pKF, bool* pbStopFlag,
           Eigen::Matrix3d Info = Eigen::Matrix3d::Identity() * invSigma2;
           e->setInformation(Info);
 
-//          auto* rk = new g2o::RobustKernelHuber;
-//          e->setRobustKernel(rk);
-//          rk->setDelta(thHuberStereo);
+#ifdef ORB_SLAM3_ORIGINAL
+          auto* rk = new g2o::RobustKernelHuber;
+          e->setRobustKernel(rk);
+          rk->setDelta(thHuberStereo);
 
           // ARK Bayes
 //           auto* rk = new g2o::RobustKernelAdaptive;
@@ -1626,11 +1643,12 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pKF, bool* pbStopFlag,
 //             alphaBA = 1.0f;
 //           }
 //           rk->setAlpha(alphaBA);
-
+#else
           auto* rk = new g2o::RobustKernelAdaptive;
           double alphaBA = getAlfa(pMP->mProbMov);
           e->setRobustKernel(rk);
           rk->setAlpha(alphaBA);
+#endif
 
           e->fx = pKFi->fx;
           e->fy = pKFi->fy;
@@ -1670,9 +1688,10 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pKF, bool* pbStopFlag,
             const float& invSigma2 = pKFi->mvInvLevelSigma2[kp.octave];
             e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//            auto* rk = new g2o::RobustKernelHuber;
-//            e->setRobustKernel(rk);
-//            rk->setDelta(thHuberMono);
+#ifdef ORB_SLAM3_ORIGINAL
+            auto* rk = new g2o::RobustKernelHuber;
+            e->setRobustKernel(rk);
+            rk->setDelta(thHuberMono);
 
             // ARK Bayes
 //             auto* rk = new g2o::RobustKernelAdaptive;
@@ -1686,11 +1705,12 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pKF, bool* pbStopFlag,
 //               alphaBA = 1.0f;
 //             }
 //             rk->setAlpha(alphaBA);
-
+#else
             auto* rk = new g2o::RobustKernelAdaptive;
             double alphaBA = getAlfa(pMP->mProbMov);
             e->setRobustKernel(rk);
             rk->setAlpha(alphaBA);
+#endif
 
             Sophus::SE3f Trl = pKFi->GetRelativePoseTrl();
             e->mTrl = g2o::SE3Quat(Trl.unit_quaternion().cast<double>(),
@@ -3959,9 +3979,10 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pMainKF,
         const float& invSigma2 = pKF->mvInvLevelSigma2[kpUn.octave];
         e->setInformation(Eigen::Matrix2d::Identity() * invSigma2);
 
-//        auto* rk = new g2o::RobustKernelHuber;
-//        e->setRobustKernel(rk);
-//        rk->setDelta(thHuber2D);
+#ifdef ORB_SLAM3_ORIGINAL
+        auto* rk = new g2o::RobustKernelHuber;
+        e->setRobustKernel(rk);
+        rk->setDelta(thHuber2D);
 
         // ARK Bayes
 //        auto* ark = new g2o::RobustKernelAdaptive;
@@ -3975,11 +3996,12 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pMainKF,
 //          alphaBA = 1.0f;
 //        }
 //        ark->setAlpha(alphaBA);
-
+#else
         auto* ark = new g2o::RobustKernelAdaptive;
         double alphaBA = getAlfa(pMPi->mProbMov);
         e->setRobustKernel(ark);
         ark->setAlpha(alphaBA);
+#endif
 
         e->pCamera = pKF->mpCamera;
 
@@ -4008,9 +4030,10 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pMainKF,
         Eigen::Matrix3d Info = Eigen::Matrix3d::Identity() * invSigma2;
         e->setInformation(Info);
 
-//        auto* rk = new g2o::RobustKernelHuber;
-//        e->setRobustKernel(rk);
-//        rk->setDelta(thHuber3D);
+#ifdef ORB_SLAM3_ORIGINAL
+        auto* rk = new g2o::RobustKernelHuber;
+        e->setRobustKernel(rk);
+        rk->setDelta(thHuber3D);
 
         // ARK Bayes
 //         auto* rk = new g2o::RobustKernelAdaptive;
@@ -4024,11 +4047,12 @@ void Optimizer::LocalBundleAdjustment(KeyFrame* pMainKF,
 //           alphaBA = 1.0f;
 //         }
 //         rk->setAlpha(alphaBA);
-
+#else
         auto* rk = new g2o::RobustKernelAdaptive;
         double alphaBA = getAlfa(pMPi->mProbMov);
         e->setRobustKernel(rk);
         rk->setAlpha(alphaBA);
+#endif
 
         e->fx = pKF->fx;
         e->fy = pKF->fy;
