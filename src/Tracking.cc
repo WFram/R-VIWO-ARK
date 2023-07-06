@@ -632,6 +632,7 @@ void Tracking::NewParameterLoader(Settings* settings) {
 
   // IMU parameters
   Sophus::SE3f Tbc = settings->Tbc();
+  mTcb = settings->Tcb();
   mInsertKFsLost = settings->insertKFsWhenLost();
   mImuFreq = settings->imuFrequency();
   mImuPer = 0.001;  // 1.0 / (double) mImuFreq;     //TODO: ESTO ESTA BIEN?
@@ -1619,7 +1620,7 @@ Sophus::SE3f Tracking::GrabImageMonocular(const cv::Mat& im,
 
   if (mSensor == System::MONOCULAR) {
     if (mState == NOT_INITIALIZED || mState == NO_IMAGES_YET ||
-        (lastID - initID) < mMaxFrames)
+        (lastID - initID) < mMaxFrames) // TODO: Clear it up
       mCurrentFrame =
           Frame(mImGray, timestamp, mpIniORBextractor, mpORBVocabulary,
                 mpCamera, mDistCoef, mbf, mThDepth);
@@ -2284,7 +2285,7 @@ void Tracking::Track() {
 
     if (bOK)
       mState = OK;
-    else if (mState == OK) {
+    else if (mState == OK) { // TODO: Check if it's performed after failing to track local map
       if (mSensor == System::IMU_MONOCULAR || mSensor == System::IMU_STEREO ||
           mSensor == System::IMU_RGBD) {
         Verbose::PrintMess("Track lost for less than one second...",

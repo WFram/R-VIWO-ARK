@@ -96,6 +96,7 @@ class Settings {
   float accWalk() const { return accWalk_; }
   float imuFrequency() const { return imuFrequency_; }
   Sophus::SE3f Tbc() { return Tbc_; }
+  Sophus::SE3f Tcb() { return Tcb_; }
   bool insertKFsWhenLost() const { return insertKFsWhenLost_; }
 
   float depthMapFactor() const { return depthMapFactor_; }
@@ -160,6 +161,7 @@ class Settings {
   void readCamera2(cv::FileStorage& fSettings);
   void readImageInfo(cv::FileStorage& fSettings);
   void readIMU(cv::FileStorage& fSettings);
+  void readIMUCameraExtrinsic(cv::FileStorage& fSettings);
   void readRGBD(cv::FileStorage& fSettings);
   void readOdom(cv::FileStorage& fSettings);
   void readORB(cv::FileStorage& fSettings);
@@ -204,6 +206,7 @@ class Settings {
   float gyroWalk_, accWalk_;
   float imuFrequency_;
   Sophus::SE3f Tbc_;
+  Sophus::SE3f Tcb_;
   bool insertKFsWhenLost_;
 
   /*

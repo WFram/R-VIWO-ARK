@@ -152,6 +152,10 @@ Settings::Settings(const std::string& configFile, const int& sensor)
   readCamera1(fSettings);
   cout << "\t-Loaded camera 1" << endl;
 
+  // Read IMU-to-Camera extrinsic
+  readIMUCameraExtrinsic(fSettings);
+  cout << "\t-Loaded IMU-to-Camera extrinsic " << endl;
+
   // Read second camera if stereo (not rectified)
   if (sensor_ == System::STEREO || sensor_ == System::IMU_STEREO) {
     readCamera2(fSettings);
@@ -459,6 +463,13 @@ void Settings::readIMU(cv::FileStorage& fSettings) {
   } else {
     insertKFsWhenLost_ = true;
   }
+}
+
+void Settings::readIMUCameraExtrinsic(cv::FileStorage& fSettings) {
+  bool found;
+
+  cv::Mat cvTcb = readParameter<cv::Mat>(fSettings, "Camera.T_c1_b", found);
+  Tcb_ = Converter::toSophus(cvTcb);
 }
 
 void Settings::readRGBD(cv::FileStorage& fSettings) {

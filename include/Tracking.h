@@ -286,6 +286,9 @@ class Tracking {
   // Last Bias Estimation (at keyframe creation)
   IMU::Bias mLastBias;
 
+  // IMU-to-Camera extrinsic
+  Sophus::SE3f mTcb;
+
   // WOdometry stuffs
   // Queue of WOdometry measurement between frames
   std::list<ODOM::Meas> mlQueueOdomData;
