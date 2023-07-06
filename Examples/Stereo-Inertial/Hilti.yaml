@@ -1,0 +1,124 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+Camera.type: "PinHole"
+
+# Left Camera calibration and distortion parameters (OpenCV)
+Camera.fx: 352.6489794433894
+Camera.fy: 352.8586498571586
+Camera.cx: 347.8170010310082
+Camera.cy: 270.5806692485468
+
+# PinHole distortion parameters
+Camera.k1: -0.039086652082708805
+Camera.k2: -0.005525347047415151
+Camera.p1: 0.004398151558986798
+Camera.p2: -0.0019701263170917808
+
+# Right Camera calibration and distortion parameters (OpenCV)
+Camera2.fx: 351.31400364193297
+Camera2.fy: 351.4911744656785
+Camera2.cx: 367.8522793375995
+Camera2.cy: 253.8402144980996
+
+# PinHole distortion parameters
+Camera2.k1: -0.03696737352869157
+Camera2.k2: -0.008917880497032812
+Camera2.p1: 0.008912969593422046
+Camera2.p2: -0.0037685977496087313
+    
+# Transformation matrix from right camera to left camera
+Tlr: !!opencv-matrix
+  rows: 3
+  cols: 4
+  dt: f
+  data: [ 0.99997614, 0.00469811, -0.00506377, 0.10817339,
+          -0.00470555, 0.99998786, -0.00145908, 0.00051284,
+          0.00505686, 0.00148287, 0.99998611, 0.00069196]
+
+# Lapping area between images
+Camera.lappingBegin: 0 # 0
+Camera.lappingEnd: 539 # 511
+
+Camera2.lappingBegin: 0
+Camera2.lappingEnd: 539
+
+# Camera resolution
+Camera.width: 720
+Camera.height: 540
+
+# Camera frames per second 
+Camera.fps: 40.0
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Image scale, it changes the image size to be processed (<1.0: reduce, >1.0: increase)
+Camera.imageScale: 1.0
+
+# Close/Far threshold. Baseline times.
+ThDepth: 40.0
+Camera.bf: 0.10817682355861229 # 19.3079
+
+# Transformation from body-frame (IMU) to Camera
+Camera.T_c1_b: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: f
+  data: [0.0016556126470597954, 0.9999840642813064, -0.005397233569448934, 0.06262779955244471,
+         0.0009350089535379302, 0.005395690615039778, 0.9999850060281122, 0.01343471252962214,
+         0.9999981923508761, -0.0016606342845620903, -0.0009260608798763448, -0.05050835847481363,
+         0.0, 0.0, 0.0, 1.0]
+
+# Transformation from left camera to body-frame (IMU)
+Tbc: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [0.00165561, 0.00093501, 0.99999819, 0.05039202,
+          0.99998406, 0.00539569, -0.00166063, -0.06278317,
+          -0.00539723, 0.99998501, -0.00092606, -0.01314327,
+          0.0, 0.0, 0.0, 1.0]
+
+# IMU noise (Use those from VINS-mono)
+IMU.NoiseGyro: 0.019 # Discrete: 0.37999999999999995; Continuous: 0.019
+IMU.NoiseAcc: 0.019 # Discrete: 0.37999999999999995; Continuous: 0.019
+IMU.GyroWalk: 0.000266
+IMU.AccWalk: 0.0043
+IMU.Frequency: 400
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1000 # Tested with 1250
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20 # 20
+ORBextractor.minThFAST: 7 # 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -3.5
+Viewer.ViewpointF: 500
