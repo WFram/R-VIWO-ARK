@@ -150,6 +150,10 @@ class System {
       const vector<IMU::Point>& vImuMeas = vector<IMU::Point>(),
       string filename = "");
 
+  // Loading LIO data
+  bool LoadLIOdom(const string& strLIOdomPath, vector<double>& vTimeStamps,
+                  vector<Sophus::SE3f>& vLIOdom);
+
   // This stops local mapping thread (map building) and performs only camera
   // tracking.
   void ActivateLocalizationMode();
@@ -300,6 +304,7 @@ class System {
   int mTrackingState;
   std::vector<MapPoint*> mTrackedMapPoints;
   std::vector<cv::KeyPoint> mTrackedKeyPointsUn;
+  std::vector<Sophus::SE3f> mvLIOdom;
   std::mutex mMutexState;
   //
   string mStrLoadAtlasFromFile;

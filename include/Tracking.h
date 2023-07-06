@@ -206,6 +206,10 @@ class Tracking {
 
   vector<MapPoint*> GetLocalMapMPS();
 
+  // LIO data
+  std::vector<Sophus::SE3f> mvLIOdom;
+  int frameCounter = 0;
+
   bool mbWriteStats;
 
 #ifdef REGISTER_TIMES

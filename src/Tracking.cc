@@ -1650,6 +1650,16 @@ Sophus::SE3f Tracking::GrabImageMonocular(const cv::Mat& im,
   lastID = mCurrentFrame.mnId;
   Track();
 
+//  if ((frameCounter % 4) == 0) {
+//    cout << "Frame number " << frameCounter << endl;
+//    cout << "Correcting frame with ID " << mCurrentFrame.mnId << endl;
+//    mCurrentFrame.SetPose(mvLIOdom.front());
+//    mvLIOdom.erase(mvLIOdom.begin());
+//  }
+//  frameCounter++;
+//  Sophus::SE3f
+//  mCurrentFrame.SetPose()
+  // TODO: Implement here a function for frame pose correction. We need to correct mCurrentFrame.mTcw
   return mCurrentFrame.GetPose();
 }
 

@@ -87,10 +87,27 @@ int main(int argc, char **argv) {
     if (sbEqual == "true") bEqual = true;
   }
 
+  // Get odometry from FAST-LIO2
+  string pathLIOdom = "/home/wfram/R-VIWO-ARK/pos_log.txt";
+  vector<Sophus::SE3f> vLIOdom;
+  vector<double> vTimestampsLIOdom;
+
   // Create SLAM system. It initializes all system threads and gets ready to
   // process frames.
   ORB_SLAM3::System SLAM(argv[1], argv[2], ORB_SLAM3::System::IMU_MONOCULAR,
                          true);
+
+  bool bLoadLIOdom;
+
+  cout << "Loading LIOdometry " << endl;
+  bLoadLIOdom = SLAM.LoadLIOdom(pathLIOdom,
+                                vTimestampsLIOdom,
+                                vLIOdom);
+
+  if (!bLoadLIOdom) {
+    std::cerr << "ERROR: Fail to load LIO data " << std::endl;
+    return EXIT_FAILURE;
+  }
 
   ImuGrabber imugb;
   ImageGrabber igb(&SLAM, &imugb, bEqual);  // TODO

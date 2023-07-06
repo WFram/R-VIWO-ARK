@@ -862,6 +862,50 @@ Sophus::SE3f System::TrackMonocular(const cv::Mat& im, const double& timestamp,
   return Tcw;
 }
 
+bool System::LoadLIOdom(const string& strLIOdomPath,
+                        vector<double>& vTimeStamps,
+                        vector<Sophus::SE3f>& vLIOdom) {
+  ifstream fLIOdom;
+  fLIOdom.open(strLIOdomPath.c_str());
+  vTimeStamps.reserve(5000); // TODO: Is the value enough?
+  vLIOdom.reserve(5000);
+  if (!fLIOdom.good()) {
+    std::cerr << "LIO data path doesn't exist\n";
+    return false;
+  }
+
+  while (!fLIOdom.eof()) {
+    string s;
+    getline(fLIOdom, s);
+    float data[7];
+    if (!s.empty()) {
+      stringstream ss;
+      ss << s;
+      ss >> data[0];  // qx
+      ss >> data[1];  // qy
+      ss >> data[2];  // qz
+      ss >> data[3];  // qw
+      ss >> data[4];  // trans_x
+      ss >> data[5];  // trans_y
+      ss >> data[6];  // trans_z
+    }
+
+    // TODO: Maybe w/o AutoAlign?
+    Eigen::Quaternion<float, Eigen::AutoAlign> quat(data[3],
+                                                     data[0],
+                                                     data[1],
+                                                     data[2]);
+    Sophus::SE3f LIOdom(quat,
+                        Eigen::Vector3f(data[4],
+                                        data[5],
+                                        data[6]));
+    mvLIOdom.push_back(LIOdom);
+  }
+
+  mpTracker->mvLIOdom = mvLIOdom; // TODO: Check that it will be passed properly
+  return true;
+}
+
 void System::ActivateLocalizationMode() {
   unique_lock<mutex> lock(mMutexMode);
   mbActivateLocalizationMode = true;
